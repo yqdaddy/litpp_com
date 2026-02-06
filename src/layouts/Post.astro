@@ -1,0 +1,74 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  category: string;
+  tags: string[];
+}
+
+const { title, description, date, category, tags } = Astro.props;
+const dateStr = date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Base title={title} description={description}>
+  <article class="container section">
+    <header class="post-header">
+      <div class="post-meta">
+        <span class="tag">{category}</span>
+        <time datetime={date.toISOString()}>{dateStr}</time>
+      </div>
+      <h1>{title}</h1>
+      <p class="post-desc">{description}</p>
+      {tags.length > 0 && (
+        <div class="post-tags">
+          {tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+    <footer class="post-footer">
+      <a href="/blog" class="btn">&larr; 返回博客</a>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .post-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .post-header h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .post-desc {
+    color: var(--color-text-secondary);
+    font-size: 1.0625rem;
+  }
+
+  .post-tags {
+    margin-top: 1rem;
+  }
+
+  .post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+</style>

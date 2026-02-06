@@ -1,0 +1,159 @@
+---
+import Base from '@/layouts/Base.astro';
+import { GAME_URL } from '@/consts';
+
+const experiments = [
+  {
+    name: '数学小游戏',
+    url: GAME_URL,
+    desc: '面向数学思维训练的交互式小游戏集合。快速心算、逻辑推理、几何直觉。',
+    tags: ['游戏', '数学', '教育'],
+    external: true,
+  },
+  {
+    name: 'Prompt Playground',
+    url: '#',
+    desc: 'Prompt 工程实验台。测试不同 Prompt 策略对 LLM 输出质量的影响。',
+    tags: ['AI', 'Prompt', '实验'],
+    external: false,
+    coming: true,
+  },
+  {
+    name: 'AI 写作助手',
+    url: '#',
+    desc: '探索 AI 辅助长文写作的可能性。从大纲到段落，从初稿到润色。',
+    tags: ['AI', '写作', '工具'],
+    external: false,
+    coming: true,
+  },
+];
+---
+
+<Base title="实验场" description="Playground 聚合页——实验性项目、小游戏与交互工具。">
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">实验场</h1>
+      <p class="page-desc">
+        这里是 Playground。<br/>
+        快速验证想法、试错、迭代。不追求完美，追求真实反馈。
+      </p>
+
+      <div class="lab-grid">
+        {experiments.map(exp => (
+          <a
+            href={exp.url}
+            target={exp.external ? '_blank' : undefined}
+            rel={exp.external ? 'noopener' : undefined}
+            class:list={['lab-card', 'card', { 'coming-soon': exp.coming }]}
+          >
+            <div class="lab-card-header">
+              <h2>{exp.name}</h2>
+              {exp.external && <span class="external-badge">↗</span>}
+              {exp.coming && <span class="coming-badge">即将上线</span>}
+            </div>
+            <p>{exp.desc}</p>
+            <div class="lab-card-tags">
+              {exp.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="lab-note">
+        <h2 class="section-title">关于实验场</h2>
+        <p>
+          实验场的核心理念是"低成本试错"。这里的项目可能不完善、可能会下线、可能会大改——
+          但每一个实验都是对某个想法的真实检验。
+        </p>
+        <p>
+          部分项目托管在子域名 <a href={GAME_URL} target="_blank" rel="noopener">game.litpp.com</a>，
+          部分在本站内实现。如果你有有趣的实验想法，欢迎 <a href="/contact">联系我</a> 交流。
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 4rem;
+  }
+
+  .lab-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lab-card.coming-soon {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .lab-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .lab-card-header h2 {
+    font-size: 1.125rem;
+  }
+
+  .lab-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .external-badge {
+    color: var(--color-text-muted);
+    font-size: 1.25rem;
+    transition: color var(--transition);
+  }
+
+  .lab-card:hover .external-badge {
+    color: var(--color-accent);
+  }
+
+  .coming-badge {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: #ffc832;
+    background: rgba(255, 200, 50, 0.1);
+    padding: 0.15em 0.5em;
+    border-radius: 4px;
+  }
+
+  .lab-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .lab-note {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .lab-note p {
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    max-width: 65ch;
+  }
+</style>

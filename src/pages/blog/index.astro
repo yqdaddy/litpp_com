@@ -1,0 +1,124 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = [...new Set(posts.map(p => p.data.category))];
+---
+
+<Base title="博客" description="AI 工程化实践、系统构建方法论、实验日志。">
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">博客</h1>
+      <p class="page-desc">实验日志 + 方法论输出。记录构建过程中的真实思考。</p>
+
+      {categories.length > 0 && (
+        <div class="categories">
+          <span class="cat-label">分类：</span>
+          {categories.map(cat => (
+            <span class="tag">{cat}</span>
+          ))}
+        </div>
+      )}
+
+      <div class="post-list">
+        {posts.map(post => (
+          <a href={`/blog/${post.id}`} class="post-card card">
+            <div class="post-card-header">
+              <span class="tag">{post.data.category}</span>
+              <time datetime={post.data.date.toISOString()}>
+                {post.data.date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </div>
+            <h2>{post.data.title}</h2>
+            <p>{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <div class="post-card-tags">
+                {post.data.tags.map(tag => <span class="tag">{tag}</span>)}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="empty-state">
+          <p>暂无文章，正在酝酿中...</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .categories {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-right: 0.25rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .post-card {
+    text-decoration: none;
+    display: block;
+  }
+
+  .post-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .post-card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    transition: color var(--transition);
+  }
+
+  .post-card:hover h2 {
+    color: var(--color-accent);
+  }
+
+  .post-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+  }
+
+  .post-card-tags {
+    margin-top: 0.75rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--color-text-muted);
+  }
+</style>

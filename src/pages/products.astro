@@ -1,0 +1,182 @@
+---
+import Base from '@/layouts/Base.astro';
+
+const products = [
+  {
+    name: 'AI 内容生成系统',
+    status: '运行中',
+    desc: '基于 LLM 的结构化内容生产管线。从 Prompt 工程到输出质量控制，覆盖内容策划、生成、审核全流程。',
+    tags: ['LLM', 'Prompt Engineering', '内容管线'],
+    highlight: '不是 ChatGPT wrapper，是真正的内容工程化。',
+  },
+  {
+    name: '数据驱动决策平台',
+    status: '运行中',
+    desc: '整合多数据源的分析决策系统。将业务指标、用户行为、市场数据汇聚为可操作的决策依据。',
+    tags: ['数据分析', '决策引擎', '可视化'],
+    highlight: '系统思维的具体落地——让数据说话，而不是直觉。',
+  },
+  {
+    name: '自动化运维 & CI/CD 体系',
+    status: '持续迭代',
+    desc: '从代码提交到生产部署的全链路自动化。包含质量门禁、灰度发布、监控告警闭环。',
+    tags: ['DevOps', 'CI/CD', '自动化'],
+    highlight: '工程能力的底座——让团队把精力花在值得花的地方。',
+  },
+  {
+    name: 'AI 辅助代码审查系统',
+    status: '实验中',
+    desc: '利用 LLM 辅助代码审查，自动识别潜在问题、生成审查意见、追踪技术债务。',
+    tags: ['AI', 'Code Review', '工程效率'],
+    highlight: '探索 AI 在工程流程中的深度嵌入。',
+  },
+];
+---
+
+<Base title="产品" description="产品与系统构建——系统思维驱动的工程实践。">
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">产品与系统</h1>
+      <p class="page-desc">
+        不只是做产品，更是构建系统。<br/>
+        每一个项目背后，是对"如何用工程方法解决真实问题"的持续回答。
+      </p>
+
+      <div class="product-list">
+        {products.map(product => (
+          <div class="product-card card">
+            <div class="product-header">
+              <h2>{product.name}</h2>
+              <span class="product-status" data-status={product.status}>{product.status}</span>
+            </div>
+            <p class="product-desc">{product.desc}</p>
+            <p class="product-highlight">{product.highlight}</p>
+            <div class="product-tags">
+              {product.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="philosophy">
+        <h2 class="section-title">构建哲学</h2>
+        <div class="grid-2">
+          <div class="philosophy-item">
+            <h3>系统思维优先</h3>
+            <p>不做孤立的功能点，做可演化的系统。每个决策都考虑长期影响。</p>
+          </div>
+          <div class="philosophy-item">
+            <h3>AI 是工具，不是目的</h3>
+            <p>AI 的价值在于解决真实问题。避免为了用 AI 而用 AI。</p>
+          </div>
+          <div class="philosophy-item">
+            <h3>工程质量即产品质量</h3>
+            <p>可维护的代码、可靠的部署、清晰的监控——这些不是"技术债"，是产品的一部分。</p>
+          </div>
+          <div class="philosophy-item">
+            <h3>小团队，大杠杆</h3>
+            <p>用自动化和 AI 放大个人和小团队的产出。做 10 人效率的 3 人团队。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+
+  .product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 4rem;
+  }
+
+  .product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .product-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .product-status {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    background: var(--color-accent-dim);
+    color: var(--color-accent);
+  }
+
+  .product-status[data-status="实验中"] {
+    background: rgba(255, 200, 50, 0.1);
+    color: #ffc832;
+  }
+
+  .product-desc {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .product-highlight {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--color-border);
+  }
+
+  .product-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .philosophy {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .philosophy-item h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .philosophy-item p {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .product-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+</style>

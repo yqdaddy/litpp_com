@@ -1,0 +1,126 @@
+---
+import Base from '@/layouts/Base.astro';
+---
+
+<Base title="联系" description="技术合作、产品交流、投资沟通。">
+  <section class="section">
+    <div class="container">
+      <h1 class="page-title">联系我</h1>
+      <p class="page-desc">
+        欢迎就以下话题交流。不卖课、不接广告，只聊值得聊的事。
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card card">
+          <h3>技术合作</h3>
+          <p>AI 工程化落地、系统架构设计、技术团队搭建相关的合作咨询。</p>
+        </div>
+        <div class="contact-card card">
+          <h3>产品交流</h3>
+          <p>对已有产品的反馈，或希望一起探索的产品方向。</p>
+        </div>
+        <div class="contact-card card">
+          <h3>开源 & 社区</h3>
+          <p>对实验场项目感兴趣，想贡献代码或想法。</p>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h2 class="section-title">联系方式</h2>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="info-label">Email</span>
+            <a href="mailto:hi@litpp.com">hi@litpp.com</a>
+          </div>
+          <div class="info-item">
+            <span class="info-label">GitHub</span>
+            <a href="https://github.com/litpp" target="_blank" rel="noopener">github.com/litpp</a>
+          </div>
+          <div class="info-item">
+            <span class="info-label">网站</span>
+            <a href="https://litpp.com">litpp.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-note">
+        <p>
+          建议优先使用 Email 联系。请简要说明来意，我会尽快回复。
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-title {
+    margin-bottom: 0.5rem;
+  }
+
+  .page-desc {
+    color: var(--color-text-secondary);
+    margin-bottom: 3rem;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 4rem;
+  }
+
+  .contact-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .contact-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  .contact-info {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    margin-bottom: 3rem;
+  }
+
+  .info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .info-label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    min-width: 80px;
+  }
+
+  .contact-note {
+    padding: 1.25rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+  }
+
+  .contact-note p {
+    color: var(--color-text-secondary);
+    font-size: 0.9375rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
