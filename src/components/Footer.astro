@@ -11,6 +11,8 @@ const year = new Date().getFullYear();
     </div>
     <div class="footer-right">
       <span class="footer-copy">© {year}</span>
+      <span class="footer-sep">·</span>
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="footer-icp">粤ICP备18152027号</a>
     </div>
   </div>
 </footer>
@@ -53,6 +55,16 @@ const year = new Date().getFullYear();
 
   .footer-link:hover {
     color: var(--color-accent);
+  }
+
+  .footer-icp {
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+    text-decoration: none;
+  }
+
+  .footer-icp:hover {
+    color: var(--color-text-secondary);
   }
 
   @media (max-width: 480px) {
