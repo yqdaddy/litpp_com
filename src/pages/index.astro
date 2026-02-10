@@ -1,12 +1,39 @@
 ---
 import Base from '@/layouts/Base.astro';
-import { getCollection } from 'astro:content';
-import { GAME_URL } from '@/consts';
+import { GAME_URL, BLOG_URL } from '@/consts';
 
-const posts = (await getCollection('blog'))
-  .filter(p => !p.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+// 从 blog.litpp.com 的 RSS 拉取最近文章
+interface RssItem {
+  title: string;
+  link: string;
+  description: string;
+  pubDate: string;
+  category?: string;
+}
+
+let posts: RssItem[] = [];
+try {
+  const res = await fetch(`${BLOG_URL}/rss.xml`, { signal: AbortSignal.timeout(5000) });
+  if (res.ok) {
+    const xml = await res.text();
+    const items = xml.match(/<item>[\s\S]*?<\/item>/g) || [];
+    posts = items.slice(0, 3).map(item => {
+      const get = (tag: string) => {
+        const m = item.match(new RegExp(`<${tag}><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}>([\\s\\S]*?)<\\/${tag}>`));
+        return m ? (m[1] || m[2] || '').trim() : '';
+      };
+      return {
+        title: get('title'),
+        link: get('link'),
+        description: get('description'),
+        pubDate: get('pubDate'),
+        category: get('category') || '',
+      };
+    });
+  }
+} catch {
+  // blog.litpp.com 不可达时静默降级
+}
 ---
 
 <Base>
@@ -21,7 +48,7 @@ const posts = (await getCollection('blog'))
       </p>
       <div class="hero-actions">
         <a href="/lab" class="btn btn-primary">进入实验场</a>
-        <a href="/blog" class="btn">阅读博客</a>
+        <a href={BLOG_URL} target="_blank" rel="noopener" class="btn">阅读博客 ↗</a>
       </div>
     </div>
   </section>
@@ -47,7 +74,7 @@ const posts = (await getCollection('blog'))
           <div class="card-icon">📝</div>
           <h3>技术写作</h3>
           <p>实验日志 + 方法论输出。记录 AI 工程化过程中的真实思考与决策。</p>
-          <a href="/blog" class="card-link">阅读博客 &rarr;</a>
+          <a href={BLOG_URL} target="_blank" rel="noopener" class="card-link">阅读博客 ↗</a>
         </div>
       </div>
     </div>
@@ -67,27 +94,29 @@ const posts = (await getCollection('blog'))
     </div>
   </section>
 
-  <!-- Recent Posts -->
+  <!-- Recent Posts (from blog.litpp.com RSS) -->
   {posts.length > 0 && (
     <section class="section">
       <div class="container">
         <h2 class="section-title">最近文章</h2>
         <div class="post-list">
           {posts.map(post => (
-            <a href={`/blog/${post.id}`} class="post-item card">
+            <a href={post.link} target="_blank" rel="noopener" class="post-item card">
               <div class="post-item-meta">
-                <span class="tag">{post.data.category}</span>
-                <time datetime={post.data.date.toISOString()}>
-                  {post.data.date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })}
-                </time>
+                {post.category && <span class="tag">{post.category}</span>}
+                {post.pubDate && (
+                  <time datetime={new Date(post.pubDate).toISOString()}>
+                    {new Date(post.pubDate).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' })}
+                  </time>
+                )}
               </div>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
             </a>
           ))}
         </div>
         <div style="margin-top: 2rem;">
-          <a href="/blog" class="btn">查看全部文章 &rarr;</a>
+          <a href={BLOG_URL} target="_blank" rel="noopener" class="btn">查看全部文章 ↗</a>
         </div>
       </div>
     </section>

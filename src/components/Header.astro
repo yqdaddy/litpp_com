@@ -1,9 +1,11 @@
 ---
+import { BLOG_URL } from '@/consts';
+
 const pathname = Astro.url.pathname;
 
 const navItems = [
   { href: '/', label: '首页' },
-  { href: '/blog', label: '博客' },
+  { href: BLOG_URL, label: '博客', external: true },
   { href: '/products', label: '产品' },
   { href: '/lab', label: '实验场' },
   { href: '/contact', label: '联系' },
@@ -13,7 +15,7 @@ const navItems = [
 <header class="header">
   <div class="container header-inner">
     <a href="/" class="logo">
-      <span class="logo-symbol">⟨</span>litpp<span class="logo-symbol">⟩</span>
+      <span class="logo-symbol">⟨</span>码流<span class="logo-symbol">⟩</span>
     </a>
     <button class="menu-toggle" aria-label="菜单" id="menu-toggle">
       <span></span>
@@ -24,9 +26,11 @@ const navItems = [
       {navItems.map(item => (
         <a
           href={item.href}
-          class:list={['nav-link', { active: pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href)) }]}
+          class:list={['nav-link', { active: !item.external && (pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))) }]}
+          target={item.external ? '_blank' : undefined}
+          rel={item.external ? 'noopener' : undefined}
         >
-          {item.label}
+          {item.label}{item.external && <span class="external-icon">↗</span>}
         </a>
       ))}
     </nav>
