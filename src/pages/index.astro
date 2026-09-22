@@ -1,5 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro';
+import Icon from '@/components/Icon.astro';
 import { GAME_URL, BLOG_URL } from '@/consts';
 
 // 从 blog.litpp.com 的 RSS 拉取最近文章
@@ -59,19 +60,19 @@ try {
       <h2 class="section-title">正在做的事</h2>
       <div class="grid-3">
         <div class="card">
-          <div class="card-icon">⚙️</div>
+          <div class="card-icon"><Icon name="cog" /></div>
           <h3>AI 工程化</h3>
           <p>探索 LLM 在实际产品中的落地路径——不只是 demo，而是可交付、可迭代的系统。</p>
           <a href="/products" class="card-link">查看产品 &rarr;</a>
         </div>
         <div class="card">
-          <div class="card-icon">🧪</div>
+          <div class="card-icon"><Icon name="flask" /></div>
           <h3>实验与原型</h3>
           <p>快速验证想法的 Playground。包括数学工具、交互小游戏、AI 辅助工具等。</p>
           <a href="/lab" class="card-link">进入实验场 &rarr;</a>
         </div>
         <div class="card">
-          <div class="card-icon">📝</div>
+          <div class="card-icon"><Icon name="pencil" /></div>
           <h3>技术写作</h3>
           <p>实验日志 + 方法论输出。记录 AI 工程化过程中的真实思考与决策。</p>
           <a href={BLOG_URL} target="_blank" rel="noopener" class="card-link">阅读博客 ↗</a>

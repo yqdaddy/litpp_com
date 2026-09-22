@@ -1,0 +1,39 @@
+---
+interface Props {
+  name: string;
+  size?: string;
+  color?: string;
+}
+
+const { name, size = '1.5rem', color = 'var(--color-accent)' } = Astro.props;
+
+const icons: Record<string, string> = {
+  cog: '/icons/mdi-cog.svg',
+  flask: '/icons/mdi-flask.svg',
+  pencil: '/icons/mdi-pencil.svg',
+  gamepad: '/icons/mdi-gamepad.svg',
+  'arrow-right': '/icons/lucide-arrow-right.svg',
+  'external-link': '/icons/lucide-external-link.svg',
+};
+
+const src = icons[name];
+if (!src) {
+  console.warn(`Icon "${name}" not found`);
+}
+---
+
+{src && (
+  <img
+    src={src}
+    alt={name}
+    class="icon"
+    style={`width: ${size}; height: ${size};`}
+  />
+)}
+
+<style>
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+</style>

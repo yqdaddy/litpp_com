@@ -1,0 +1,10 @@
+{
+  "icons": [
+    { "name": "cog", "file": "mdi-cog.svg", "collection": "mdi" },
+    { "name": "flask", "file": "mdi-flask.svg", "collection": "mdi" },
+    { "name": "pencil", "file": "mdi-pencil.svg", "collection": "mdi" },
+    { "name": "gamepad", "file": "mdi-gamepad.svg", "collection": "mdi" },
+    { "name": "arrow-right", "file": "lucide-arrow-right.svg", "collection": "lucide" },
+    { "name": "external-link", "file": "lucide-external-link.svg", "collection": "lucide" }
+  ]
+}
