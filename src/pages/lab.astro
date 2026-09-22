@@ -2,158 +2,215 @@
 import Base from '@/layouts/Base.astro';
 import { GAME_URL } from '@/consts';
 
-const experiments = [
-  {
-    name: '数学小游戏',
-    url: GAME_URL,
-    desc: '面向数学思维训练的交互式小游戏集合。快速心算、逻辑推理、几何直觉。',
-    tags: ['游戏', '数学', '教育'],
-    external: true,
-  },
+const featureExperiment = {
+  name: '数学小游戏',
+  url: GAME_URL,
+  desc: '面向数学思维训练的交互式小游戏集合。快速心算、逻辑推理、几何直觉。',
+  tags: ['游戏', '数学', '教育'],
+};
+
+const queueExperiments = [
   {
     name: 'Prompt Playground',
-    url: '#',
+    status: 'soon',
+    statusText: '即将上线',
     desc: 'Prompt 工程实验台。测试不同 Prompt 策略对 LLM 输出质量的影响。',
     tags: ['AI', 'Prompt', '实验'],
-    external: false,
-    coming: true,
   },
   {
     name: 'AI 写作助手',
-    url: '#',
+    status: 'soon',
+    statusText: '即将上线',
     desc: '探索 AI 辅助长文写作的可能性。从大纲到段落，从初稿到润色。',
     tags: ['AI', '写作', '工具'],
-    external: false,
-    coming: true,
   },
 ];
 ---
 
-<Base title="实验场" description="Playground 聚合页——实验性项目、小游戏与交互工具。">
+<Base title="实验场" description="Playground 聚合页，实验性项目、小游戏与交互工具。">
   <section class="section">
     <div class="container">
-      <h1 class="page-title">实验场</h1>
-      <p class="page-desc">
-        这里是 Playground。<br/>
-        快速验证想法、试错、迭代。不追求完美，追求真实反馈。
-      </p>
+      <header class="page-head">
+        <h1 class="page-title">实验场</h1>
+        <p class="page-desc">
+          这里是 Playground。快速验证想法、试错、迭代。不追求完美，追求真实反馈。
+        </p>
+      </header>
 
       <div class="lab-grid">
-        {experiments.map(exp => (
-          <a
-            href={exp.url}
-            target={exp.external ? '_blank' : undefined}
-            rel={exp.external ? 'noopener' : undefined}
-            class:list={['lab-card', 'card', { 'coming-soon': exp.coming }]}
-          >
-            <div class="lab-card-header">
-              <h2>{exp.name}</h2>
-              {exp.external && <span class="external-badge">↗</span>}
-              {exp.coming && <span class="coming-badge">即将上线</span>}
+        <a
+          href={featureExperiment.url}
+          target="_blank"
+          rel="noopener"
+          class="lab-feature"
+        >
+          <h2>{featureExperiment.name}</h2>
+          <p>{featureExperiment.desc}</p>
+          <div class="tag-row">
+            {featureExperiment.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+          <span class="link-arrow">进入 game.litpp.com ↗</span>
+        </a>
+        <div class="lab-queue">
+          {queueExperiments.map(exp => (
+            <div class="lab-queue-item">
+              <div class="lab-queue-head">
+                <h3>{exp.name}</h3>
+                <span class={`status status-${exp.status}`}>{exp.statusText}</span>
+              </div>
+              <p>{exp.desc}</p>
+              <div class="tag-row">
+                {exp.tags.map(tag => <span class="tag">{tag}</span>)}
+              </div>
             </div>
-            <p>{exp.desc}</p>
-            <div class="lab-card-tags">
-              {exp.tags.map(tag => <span class="tag">{tag}</span>)}
-            </div>
-          </a>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div class="lab-note">
-        <h2 class="section-title">关于实验场</h2>
-        <p>
-          实验场的核心理念是"低成本试错"。这里的项目可能不完善、可能会下线、可能会大改——
-          但每一个实验都是对某个想法的真实检验。
-        </p>
-        <p>
-          部分项目托管在子域名 <a href={GAME_URL} target="_blank" rel="noopener">game.litpp.com</a>，
-          部分在本站内实现。如果你有有趣的实验想法，欢迎 <a href="/contact">联系我</a> 交流。
-        </p>
+        <div class="section-head">
+          <h2>关于实验场</h2>
+        </div>
+        <div class="lab-note-content">
+          <p>
+            实验场的核心理念是"低成本试错"。这里的项目可能不完善、可能会下线、可能会大改，但每一个实验都是对某个想法的真实检验。
+          </p>
+          <p>
+            部分项目托管在子域名 <a href={GAME_URL} target="_blank" rel="noopener">game.litpp.com</a>，
+            部分在本站内实现。如果你有有趣的实验想法，欢迎 <a href="/contact">联系我</a> 交流。
+          </p>
+        </div>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
+  .page-head {
+    margin-bottom: var(--space-7);
+  }
+
   .page-title {
-    margin-bottom: 0.5rem;
+    font-family: var(--font-serif);
+    font-size: var(--text-h1);
+    font-weight: 700;
+    color: var(--color-ink);
+    margin-bottom: var(--space-3);
   }
 
   .page-desc {
-    color: var(--color-text-secondary);
-    margin-bottom: 3rem;
-    line-height: 1.8;
+    font-size: var(--text-md);
+    color: var(--color-ink-2);
+    line-height: var(--leading-body);
   }
 
+  /* Lab Grid */
   .lab-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 4rem;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-5);
+    margin-bottom: var(--space-9);
   }
 
-  .lab-card {
+  /* Feature Cell */
+  .lab-feature {
+    padding: var(--space-7);
+    background: var(--color-accent-soft);
     text-decoration: none;
+    transition: background var(--dur-2) var(--ease-out-quiet);
+  }
+
+  .lab-feature:hover {
+    background: var(--color-accent-soft);
+  }
+
+  .lab-feature h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-h2);
+    font-weight: 700;
+    color: var(--color-ink);
+    margin-bottom: var(--space-3);
+  }
+
+  .lab-feature p {
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-body);
+  }
+
+  .lab-feature .tag-row {
+    margin-bottom: var(--space-4);
+  }
+
+  /* Queue */
+  .lab-queue {
     display: flex;
     flex-direction: column;
   }
 
-  .lab-card.coming-soon {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-
-  .lab-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-  }
-
-  .lab-card-header h2 {
-    font-size: 1.125rem;
-  }
-
-  .lab-card p {
-    color: var(--color-text-secondary);
-    font-size: 0.9375rem;
-    margin-bottom: 1rem;
-    flex: 1;
-  }
-
-  .external-badge {
-    color: var(--color-text-muted);
-    font-size: 1.25rem;
-    transition: color var(--transition);
-  }
-
-  .lab-card:hover .external-badge {
-    color: var(--color-accent);
-  }
-
-  .coming-badge {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: #ffc832;
-    background: rgba(255, 200, 50, 0.1);
-    padding: 0.15em 0.5em;
-    border-radius: 4px;
-  }
-
-  .lab-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-  }
-
-  .lab-note {
-    padding-top: 2rem;
+  .lab-queue-item {
+    padding: var(--space-5) 0;
     border-top: 1px solid var(--color-border);
   }
 
-  .lab-note p {
-    color: var(--color-text-secondary);
-    margin-bottom: 1rem;
+  .lab-queue-item:first-child {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .lab-queue-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .lab-queue-item h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-h3);
+    font-weight: 700;
+    color: var(--color-ink-2);
+    margin: 0;
+  }
+
+  .lab-queue-item p {
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-body);
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  /* Lab Note */
+  .lab-note {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--space-7);
+  }
+
+  .lab-note-content p {
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    margin-bottom: var(--space-4);
     max-width: 65ch;
+    line-height: var(--leading-body);
+  }
+
+  .lab-note-content a {
+    color: var(--color-ink);
+  }
+
+  .lab-note-content a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .lab-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

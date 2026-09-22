@@ -8,22 +8,94 @@
 }
 
 :root {
-  --color-bg: #0a0a0a;
-  --color-bg-secondary: #111111;
-  --color-bg-card: #161616;
-  --color-border: #222222;
-  --color-border-hover: #333333;
-  --color-text: #e0e0e0;
-  --color-text-secondary: #888888;
-  --color-text-muted: #555555;
-  --color-accent: #00d4aa;
-  --color-accent-dim: rgba(0, 212, 170, 0.1);
-  --color-accent-hover: #00f0c0;
-  --color-heading: #ffffff;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
-  --max-width: 960px;
-  --transition: 0.2s ease;
+  /* === 色彩：纸与墨（浅色默认主题） === */
+  --color-bg: #FAF9F6;
+  --color-bg-alt: #F1EFE8;
+  --color-surface: #FFFFFF;
+  --color-ink: #1C1B18;
+  --color-ink-2: #57544C;
+  --color-ink-3: #6E6A60;
+  --color-border: #E4E1D7;
+  --color-border-strong: #8F8A7C;
+  --color-accent: #BC3F2C;
+  --color-accent-hover: #9A3323;
+  --color-accent-soft: rgba(188, 63, 44, 0.08);
+  --color-accent-contrast: #FFFFFF;
+  --color-ok: #2E7D4F;
+  --color-ok-soft: rgba(46, 125, 79, 0.10);
+  --color-warn: #8A5A0A;
+  --color-warn-soft: rgba(138, 90, 10, 0.10);
+  --color-glass: rgba(250, 249, 246, 0.88);
+
+  /* === 字体 === */
+  --font-serif: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* === 字号（editorial scale） === */
+  --text-display: clamp(2.5rem, 1.2rem + 4.5vw, 3.75rem);
+  --text-h1: clamp(2rem, 1.1rem + 3vw, 2.75rem);
+  --text-h2: clamp(1.5rem, 1.2rem + 1.2vw, 1.875rem);
+  --text-h3: 1.25rem;
+  --text-md: 1.0625rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-meta: 0.8125rem;
+  --text-tag: 0.75rem;
+  --leading-body: 1.85;
+  --leading-tight: 1.35;
+  --leading-display: 1.2;
+
+  /* === 间距（4px 网格） === */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --section-y: var(--space-9);
+  --gutter: clamp(20px, 4vw, 32px);
+
+  /* === 结构 === */
+  --container: 1120px;
+  --header-h: 64px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* === 动效 === */
+  --ease-out-quiet: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-1: 150ms;
+  --dur-2: 240ms;
+  --dur-3: 420ms;
+
+  /* === 层级 === */
+  --z-header: 100;
+}
+
+/* === 暗色主题（遵循系统偏好） === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #171613;
+    --color-bg-alt: #1D1B17;
+    --color-surface: #201E19;
+    --color-ink: #E9E6DE;
+    --color-ink-2: #A29D92;
+    --color-ink-3: #8A8578;
+    --color-border: #322F28;
+    --color-border-strong: #6E6858;
+    --color-accent: #DC6B4F;
+    --color-accent-hover: #E57B5F;
+    --color-accent-soft: rgba(220, 107, 79, 0.12);
+    --color-accent-contrast: #171613;
+    --color-ok: #5CB47E;
+    --color-ok-soft: rgba(92, 180, 126, 0.12);
+    --color-warn: #D9A441;
+    --color-warn-soft: rgba(217, 164, 65, 0.12);
+    --color-glass: rgba(23, 22, 19, 0.88);
+  }
 }
 
 html {
@@ -34,20 +106,20 @@ html {
 body {
   font-family: var(--font-sans);
   background: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.7;
+  color: var(--color-ink);
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-  color: var(--color-accent);
+  color: var(--color-ink);
   text-decoration: none;
-  transition: color var(--transition);
+  transition: color var(--dur-1) var(--ease-out-quiet);
 }
 
 a:hover {
-  color: var(--color-accent-hover);
+  color: var(--color-accent);
 }
 
 img {
@@ -57,38 +129,44 @@ img {
 
 /* === Typography === */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--color-heading);
-  font-weight: 600;
-  line-height: 1.3;
+  font-family: var(--font-serif);
+  color: var(--color-ink);
+  font-weight: 700;
+  line-height: var(--leading-tight);
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.25rem; }
+h1 { font-size: var(--text-h1); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
 
 /* === Utility === */
 .container {
-  max-width: var(--max-width);
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
 }
 
 .section {
-  padding: 4rem 0;
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 
-.section-title {
-  font-size: 1.125rem;
-  font-family: var(--font-mono);
-  color: var(--color-accent);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 2rem;
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-border-strong);
 }
 
-.section-title::before {
-  content: '// ';
-  color: var(--color-text-muted);
+.section-head h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0;
 }
 
 /* === Prose (Blog Content) === */
@@ -124,16 +202,16 @@ h3 { font-size: 1.25rem; }
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-alt);
   padding: 0.15em 0.4em;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
 }
 
 .prose pre {
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.25rem;
   overflow-x: auto;
   margin-bottom: 1.5rem;
@@ -149,85 +227,156 @@ h3 { font-size: 1.25rem; }
 .prose blockquote {
   border-left: 3px solid var(--color-accent);
   padding-left: 1rem;
-  color: var(--color-text-secondary);
+  color: var(--color-ink-2);
   margin-bottom: 1.25rem;
-  font-style: italic;
 }
 
 .prose strong {
-  color: var(--color-heading);
-}
-
-/* === Cards === */
-.card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 1.75rem;
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.card:hover {
-  border-color: var(--color-border-hover);
-  transform: translateY(-2px);
-}
-
-/* === Tags === */
-.tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--color-accent);
-  background: var(--color-accent-dim);
-  padding: 0.2em 0.6em;
-  border-radius: 4px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.25rem;
+  color: var(--color-ink);
 }
 
 /* === Button === */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  padding: 0.6rem 1.25rem;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
   background: transparent;
-  color: var(--color-text);
+  color: var(--color-ink);
   cursor: pointer;
-  transition: all var(--transition);
   text-decoration: none;
+  transition: all var(--dur-1) var(--ease-out-quiet);
 }
 
 .btn:hover {
-  border-color: var(--color-accent);
   color: var(--color-accent);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 .btn-primary {
   background: var(--color-accent);
-  color: var(--color-bg);
+  color: var(--color-accent-contrast);
   border-color: var(--color-accent);
   font-weight: 600;
 }
 
 .btn-primary:hover {
   background: var(--color-accent-hover);
-  color: var(--color-bg);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-contrast);
+}
+
+.btn-ghost {
+  border-color: var(--color-border-strong);
+  color: var(--color-ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* === Tags === */
+.tag {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-tag);
+  font-weight: 500;
+  color: var(--color-ink-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  margin-right: var(--space-1);
+  margin-bottom: var(--space-1);
+}
+
+/* === Status Badges === */
+.status {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-tag);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  border: 1px solid currentColor;
+}
+
+.status-live {
+  color: var(--color-ok);
+  background: var(--color-ok-soft);
+}
+
+.status-iter {
+  color: var(--color-ink-3);
+  background: transparent;
+}
+
+.status-exp, .status-soon {
+  color: var(--color-warn);
+  background: var(--color-warn-soft);
+}
+
+/* === Link Arrow === */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease-out-quiet);
+}
+
+.link-arrow::after {
+  content: "→";
+  transition: transform var(--dur-1) var(--ease-out-quiet);
+}
+
+.link-arrow:hover {
+  color: var(--color-accent);
+}
+
+.link-arrow:hover::after {
+  transform: translateX(4px);
+}
+
+/* === Focus Visible === */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* === Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* === Responsive === */
 @media (max-width: 768px) {
   html { font-size: 15px; }
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.5rem; }
-  .section { padding: 3rem 0; }
+  .section { padding-top: var(--space-7); padding-bottom: var(--space-7); }
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.5rem; }
-  .container { padding: 0 1rem; }
+  .container { padding-left: var(--space-4); padding-right: var(--space-4); }
 }

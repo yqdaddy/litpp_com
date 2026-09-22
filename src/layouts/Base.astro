@@ -16,6 +16,10 @@ const { title, description } = Astro.props;
 <html lang="zh-CN">
   <head>
     <SEO title={title} description={description} />
+    <!-- Noto Serif SC 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&display=swap" rel="stylesheet">
     <!-- 百度统计 -->
     <script>
     var _hmt = _hmt || [];
