@@ -49,7 +49,15 @@ const topics = [
               <span>网站</span>
               <a href="https://litpp.com">litpp.com</a>
             </li>
+            <li>
+              <span>公众号</span>
+              <span class="wechat-name">mamaaios</span>
+            </li>
           </ul>
+          <div class="wechat-qr">
+            <img src="/images/wechat-qr.jpg" alt="公众号 mamaaios 二维码" />
+            <p>扫码关注公众号</p>
+          </div>
           <p class="contact-hint">建议优先使用 Email。请简要说明来意，我会尽快回复。</p>
         </aside>
       </div>
@@ -177,6 +185,31 @@ const topics = [
     color: var(--color-ink-2);
     margin: 0;
     line-height: var(--leading-body);
+  }
+
+  .wechat-name {
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+  }
+
+  .wechat-qr {
+    text-align: center;
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .wechat-qr img {
+    width: 120px;
+    height: 120px;
+    border: 1px solid var(--color-border);
+  }
+
+  .wechat-qr p {
+    font-size: var(--text-meta);
+    color: var(--color-ink-3);
+    margin: var(--space-2) 0 0;
   }
 
   @media (max-width: 768px) {
