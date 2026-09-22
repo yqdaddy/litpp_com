@@ -20,6 +20,10 @@ const year = new Date().getFullYear();
         <a href="https://game.litpp.com" target="_blank" rel="noopener">game.litpp.com ↗</a>
         <a href="https://github.com/yqdaddy" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
+      <div class="footer-wechat">
+        <span class="wechat-label">公众号 mamaaios</span>
+        <img src="/images/wechat-qr.jpg" alt="公众号二维码" class="wechat-qr" />
+      </div>
     </div>
     <div class="footer-legal">
       <span>© {year} 码孖</span>
@@ -37,7 +41,7 @@ const year = new Date().getFullYear();
 
   .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: var(--space-7);
     margin-bottom: var(--space-6);
   }
@@ -70,6 +74,23 @@ const year = new Date().getFullYear();
 
   .footer-nav a:hover {
     color: var(--color-ink);
+  }
+
+  .footer-wechat {
+    text-align: center;
+  }
+
+  .wechat-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .wechat-qr {
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--color-border);
   }
 
   .footer-legal {
